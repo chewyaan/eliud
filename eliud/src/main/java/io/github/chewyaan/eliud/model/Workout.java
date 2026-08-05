@@ -7,6 +7,8 @@ public class Workout {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private TrainingPlan trainingPlan;
+    //    Temp. limiting fetch/cascade interaction
+
+//    @ManyToOne
+//    private TrainingPlan trainingPlan;
 }

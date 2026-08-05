@@ -14,12 +14,17 @@ public class User {
     private Double height;
     private Double weight;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<RaceGoal> raceGoals;
+    //    Temp. limiting fetch/cascade interaction
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<DailyLog> dailyLogs;
+//    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    private List<RaceGoal> raceGoals;
 
-    @OneToOne
-    private TrainingPlan trainingPlan;
+    //    Temp. limiting fetch/cascade interaction
+
+//    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    private List<DailyLog> dailyLogs;
+//    Temp. limiting fetch/cascade interaction
+
+//    @OneToOne
+//    private TrainingPlan trainingPlan;
 }
