@@ -48,7 +48,4 @@ public class RaceGoal {
         this.time = time;
     }
 
-//    Temp. limiting fetch/cascade interaction
-//    @ManyToOne
-//    private User user;
 }
