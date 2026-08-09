@@ -7,6 +7,8 @@ public class AdjustmentSignal {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private DailyLog sourceLog;
+    //    Temp. limiting fetch/cascade interaction
+
+//    @ManyToOne
+//    private DailyLog sourceLog;
 }
