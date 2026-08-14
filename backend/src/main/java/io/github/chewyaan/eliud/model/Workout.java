@@ -9,6 +9,6 @@ public class Workout {
 
     //    Temp. limiting fetch/cascade interaction
 
-//    @ManyToOne
-//    private TrainingPlan trainingPlan;
+    @ManyToOne
+    private TrainingPlan trainingPlan;
 }

@@ -9,8 +9,11 @@ public class TrainingPlan {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
+
     //    Temp. limiting fetch/cascade interaction
 
-//    @OneToMany(mappedBy = "trainingPlan", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    private List<Workout> workouts;
+    @OneToMany(mappedBy = "trainingPlan", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Workout> workouts;
 }
