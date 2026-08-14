@@ -3,6 +3,7 @@ package io.github.chewyaan.eliud.model;
 import jakarta.persistence.*;
 
 import java.time.Duration;
+import java.time.LocalDate;
 
 @Entity
 public class RaceGoal {
@@ -12,6 +13,7 @@ public class RaceGoal {
     private String name;
     private Double distance;
     private Duration time;
+    private LocalDate raceDate;
 
     public RaceGoal() {}
     public RaceGoal(String name, Double distance, Duration time) {
@@ -48,4 +50,11 @@ public class RaceGoal {
         this.time = time;
     }
 
+    public LocalDate getRaceDate() {
+        return raceDate;
+    }
+
+    public void setRaceDate(LocalDate raceDate) {
+        this.raceDate = raceDate;
+    }
 }
