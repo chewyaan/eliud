@@ -16,10 +16,11 @@ public class RaceGoal {
     private LocalDate raceDate;
 
     public RaceGoal() {}
-    public RaceGoal(String name, Double distance, Duration time) {
+    public RaceGoal(String name, Double distance, Duration time, LocalDate raceDate) {
         this.name = name;
         this.distance = distance;
         this.time = time;
+        this.raceDate = raceDate;
     }
 
     public Long getId() {
