@@ -6,8 +6,8 @@ import io.github.chewyaan.eliud.model.PlannedWorkout;
 import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.repository.RaceGoalRepository;
 import io.github.chewyaan.eliud.repository.TrainingPlanRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,10 @@ public class TrainingPlanService {
                 raceGoalRepository.findById(raceGoalId).orElseThrow(() -> new IllegalArgumentException("Invalid ID Provided"))
         );
 
-        return trainingPlanRepository.save(toDto(trainingPlan));
+        // Needs to save to repo first - so that the training plan id is properly generated for the .getId() call in toDto()
+        trainingPlanRepository.save(trainingPlan);
+
+        return toDto(trainingPlan);
     }
 
     private TrainingPlanDto toDto(TrainingPlan trainingPlan) {
