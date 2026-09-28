@@ -1,10 +1,16 @@
 package io.github.chewyaan.eliud.services;
 
+import io.github.chewyaan.eliud.dto.PlannedWorkoutDto;
+import io.github.chewyaan.eliud.dto.TrainingPlanDto;
+import io.github.chewyaan.eliud.model.PlannedWorkout;
 import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.repository.RaceGoalRepository;
 import io.github.chewyaan.eliud.repository.TrainingPlanRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TrainingPlanService {
@@ -19,10 +25,29 @@ public class TrainingPlanService {
     }
 
     @Transactional
-    public TrainingPlan createPlanForGoal(Long raceGoalId) {
+    public TrainingPlanDto createPlanForGoal(Long raceGoalId) {
         TrainingPlan trainingPlan = planEngineService.generateInitialPlan(
                 raceGoalRepository.findById(raceGoalId).orElseThrow(() -> new IllegalArgumentException("Invalid ID Provided"))
         );
-        return trainingPlanRepository.save(trainingPlan);
+
+        // Needs to save to repo first - so that the training plan id is properly generated for the .getId() call in toDto()
+        return toDto(trainingPlanRepository.save(trainingPlan));
+    }
+
+    private TrainingPlanDto toDto(TrainingPlan trainingPlan) {
+
+        List<PlannedWorkoutDto> plannedWorkoutDtos = new ArrayList<>();
+        for (PlannedWorkout workout : trainingPlan.getWorkouts()) {
+            plannedWorkoutDtos.add(new PlannedWorkoutDto(workout.getDistance(), workout.getDate(), workout.getWorkoutType()));
+        }
+
+        return new TrainingPlanDto(
+                trainingPlan.getId(),
+                trainingPlan.getPreviousVersion() != null ? trainingPlan.getPreviousVersion().getId() : null,
+                trainingPlan.getRaceGoal().getId(),
+                plannedWorkoutDtos,
+                trainingPlan.getNumOfWeeks(),
+                trainingPlan.getVersionNumber()
+        );
     }
 }

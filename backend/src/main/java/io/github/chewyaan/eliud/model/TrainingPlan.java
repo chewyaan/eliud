@@ -51,6 +51,14 @@ public class TrainingPlan {
         return versionNumber;
     }
 
+    public RaceGoal getRaceGoal() {
+        return raceGoal;
+    }
+
+    public TrainingPlan getPreviousVersion() {
+        return previousVersion;
+    }
+
     // Helper function that adds workout to a list and bypasses JPA bidirectional rule that nulls FK if we don't set it at the owner's side
     public void addWorkout(PlannedWorkout plannedWorkout) {
          this.plannedWorkouts.add(plannedWorkout);
