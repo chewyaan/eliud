@@ -31,9 +31,7 @@ public class TrainingPlanService {
         );
 
         // Needs to save to repo first - so that the training plan id is properly generated for the .getId() call in toDto()
-        trainingPlanRepository.save(trainingPlan);
-
-        return toDto(trainingPlan);
+        return toDto(trainingPlanRepository.save(trainingPlan));
     }
 
     private TrainingPlanDto toDto(TrainingPlan trainingPlan) {
@@ -45,8 +43,8 @@ public class TrainingPlanService {
 
         return new TrainingPlanDto(
                 trainingPlan.getId(),
-                null,
-                null,
+                trainingPlan.getPreviousVersion() != null ? trainingPlan.getPreviousVersion().getId() : null,
+                trainingPlan.getRaceGoal().getId(),
                 plannedWorkoutDtos,
                 trainingPlan.getNumOfWeeks(),
                 trainingPlan.getVersionNumber()

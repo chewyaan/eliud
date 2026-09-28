@@ -59,4 +59,6 @@ public class RaceGoal {
     public void setRaceDate(LocalDate raceDate) {
         this.raceDate = raceDate;
     }
+
+
 }
