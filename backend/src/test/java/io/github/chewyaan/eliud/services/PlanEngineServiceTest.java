@@ -6,16 +6,19 @@ import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.model.WorkoutType;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PlanEngineServiceTest {
 
-    private static final LocalDate RACE_DATE = LocalDate.of(2026, 6, 7);
+    private static final LocalDate RACE_DATE = LocalDate.of(2026, 10, 11);
 
     private final PlanEngineService planEngineService = new PlanEngineService();
 
@@ -136,5 +139,19 @@ class PlanEngineServiceTest {
 
         assertThatThrownBy(() -> planEngineService.generateInitialPlan(raceGoal))
                 .isInstanceOf(NullPointerException.class);
+    }
+
+//    @Test
+//    void generateInitialPlan_dayOfWeek() {
+//        DayOfWeek raceDate = RACE_DATE.getDayOfWeek().plus(1);
+//        String raceDateStr = raceDate.getDisplayName(TextStyle.SHORT, Locale.CANADA);
+//
+//        System.out.println(raceDateStr);
+//    }
+
+    @Test
+    void generateInitialPlan_startDate() {
+        LocalDate startDate = LocalDate.of(2026, 10, 11);
+        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(startDate));
     }
 }

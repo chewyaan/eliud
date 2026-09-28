@@ -6,6 +6,7 @@ import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.model.WorkoutType;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Service
@@ -16,41 +17,42 @@ public class PlanEngineService {
     public TrainingPlan generateInitialPlan(RaceGoal raceGoal) {
 
         final int NUM_OF_WEEKS = 12;
-        final int DAYS_IN_WEEK = 7;
         LocalDate startDate = raceGoal.getRaceDate().minusWeeks(NUM_OF_WEEKS);
 
         // [REVISIT] need to implement prev TrainingPlan version logic, and versioning
         TrainingPlan trainingPlan = new TrainingPlan(null, raceGoal, NUM_OF_WEEKS, 0);
 
-        for (int w = 0; w < NUM_OF_WEEKS; w++) {
-            for (int d = 0; d < DAYS_IN_WEEK; d++) {
+        for (int week = 0; week < NUM_OF_WEEKS; week++) {
+            for (DayOfWeek day : DayOfWeek.values()) {
                 double distance = 0.0;
-                LocalDate workoutDate = startDate.plusWeeks(w).plusDays(d);
+                LocalDate workoutDate = startDate.plusWeeks(week).plusDays(day.getValue()-1);
                 WorkoutType workoutType = WorkoutType.REST;
 
-                switch (d) {
-                    case 0:
+                switch (workoutDate.getDayOfWeek()) {
+                    case MONDAY:
                         distance = 7.0;
                         workoutType = WorkoutType.EASY;
                         break;
-                    case 1:
-                    case 3:
+                    case TUESDAY:
+                    case WEDNESDAY:
                         distance = 5.0;
                         workoutType = WorkoutType.EASY;
                         break;
-                    case 2:
+                    case THURSDAY:
                         distance = 9.0;
                         workoutType = WorkoutType.TEMPO;
                         break;
-                    case 4:
+                    case FRIDAY:
                         break;
-                    case 5:
+                    case SATURDAY:
                         distance = 2.0;
                         workoutType = WorkoutType.EASY;
                         break;
-                    case 6:
-                        distance = 15.0;
-                        workoutType = WorkoutType.LONG;
+                    case SUNDAY:
+                        if (week != NUM_OF_WEEKS-1) {
+                            distance = 15.0;
+                            workoutType = WorkoutType.LONG;
+                        }
                         break;
                     default:
                         throw new IllegalStateException("Something went wrong. Please try again.");
