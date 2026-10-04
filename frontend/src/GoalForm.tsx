@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { RaceGoal } from "./RaceGoal";
 
-export default function Form() {
+export default function GoalForm() {
   const [name, setName] = useState("");
   const [distance, setDistance] = useState("");
   const [time, setTime] = useState("");

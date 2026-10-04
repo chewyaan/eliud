@@ -1,11 +1,11 @@
-import Form from './Form'
 import './App.css'
+import GoalForm from './GoalForm'
 
 function App() {
 
   return (
     <>
-     <Form/>
+     <GoalForm/>
     </>
   )
 }
