@@ -5,6 +5,7 @@ export default function Form() {
   const [name, setName] = useState("");
   const [distance, setDistance] = useState("");
   const [time, setTime] = useState("");
+  const [raceDate, setRaceDate] = useState("");
   const [raceGoal, setRaceGoal] = useState<RaceGoal | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,7 +18,7 @@ export default function Form() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, distance: Number(distance), time }),
+        body: JSON.stringify({ name, distance: Number(distance), time, raceDate }),
       });
       if (response.ok) {
         setRaceGoal(await response.json());
@@ -49,6 +50,14 @@ export default function Form() {
           />
         </label>
         <label>
+          Race Date:{" "}
+          <input
+            type="date"
+            value={raceDate}
+            onChange={(e) => setRaceDate(e.target.value)}
+          />
+        </label>
+        <label>
           Time:{" "}
           <input
             type="text"
@@ -56,13 +65,14 @@ export default function Form() {
             onChange={(e) => setTime(e.target.value)}
           />
         </label>
-        <button type="submit">Enter</button>
+        <button type="submit">Create Goal</button>
       </div>
       {raceGoal && (
         <div>
           <div>ID: {raceGoal.id}</div>
           <div>Name: {raceGoal.name}</div>
           <div>Distance: {raceGoal.distance}</div>
+          <div>Race Date: {raceGoal.raceDate}</div>
           <div>Time: {raceGoal.time}</div>
         </div>
       )}
