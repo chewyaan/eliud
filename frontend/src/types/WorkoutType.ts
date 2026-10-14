@@ -1,0 +1,1 @@
+export type WorkoutType = "EASY" | "TEMPO" | "INTERVALS" | "LONG" | "HILL" | "REST"
