@@ -1,11 +1,14 @@
-import Form from './Form'
+import { useState } from 'react'
+import type { TrainingPlan } from './types/TrainingPlan'
 import './App.css'
+import GoalForm from './GoalForm'
 
 function App() {
+  const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null);
 
   return (
     <>
-     <Form/>
+     <GoalForm trainingPlan={trainingPlan} setTrainingPlan={setTrainingPlan} />
     </>
   )
 }
