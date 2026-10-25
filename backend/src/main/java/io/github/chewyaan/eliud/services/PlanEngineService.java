@@ -6,7 +6,9 @@ import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.model.WorkoutType;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 
 @Service
 public class PlanEngineService {
@@ -16,7 +18,9 @@ public class PlanEngineService {
     public TrainingPlan generateInitialPlan(RaceGoal raceGoal) {
 
         final int NUM_OF_WEEKS = 12;
-        LocalDate startDate = raceGoal.getRaceDate().minusWeeks(NUM_OF_WEEKS);
+        // Ensures start date is always a Monday
+        LocalDate startDate = raceGoal.getRaceDate().minusWeeks(NUM_OF_WEEKS)
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
 
         // [REVISIT] need to implement prev TrainingPlan version logic, and versioning
         TrainingPlan trainingPlan = new TrainingPlan(null, raceGoal, NUM_OF_WEEKS, 0);

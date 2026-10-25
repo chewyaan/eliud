@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { RaceGoal } from "./types/RaceGoal";
-import type { TrainingPlan } from "./types/TrainingPlan";
+import type { RaceGoal } from "../types/RaceGoal";
+import type { TrainingPlan } from "../types/TrainingPlan";
 
 export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPlan: TrainingPlan | null; setTrainingPlan: React.Dispatch<React.SetStateAction<TrainingPlan | null>> }) {
   const [name, setName] = useState("");
