@@ -27,20 +27,6 @@ class PlanEngineServiceTest {
     }
 
     @Test
-    void generateInitialPlan_producesEightyFourWorkouts() {
-        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(RACE_DATE));
-
-        assertThat(plan.getWorkouts()).hasSize(84);
-    }
-
-    @Test
-    void generateInitialPlan_firstWorkoutDateEqualsRaceDateMinusTwelveWeeks() {
-        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(RACE_DATE));
-
-        assertThat(plan.getWorkouts().get(0).getDate()).isEqualTo(RACE_DATE.minusWeeks(12));
-    }
-
-    @Test
     void generateInitialPlan_lastWorkoutDateIsOneDayBeforeRaceDate() {
         TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(RACE_DATE));
         List<PlannedWorkout> workouts = plan.getWorkouts();
@@ -141,17 +127,25 @@ class PlanEngineServiceTest {
                 .isInstanceOf(NullPointerException.class);
     }
 
-//    @Test
-//    void generateInitialPlan_dayOfWeek() {
-//        DayOfWeek raceDate = RACE_DATE.getDayOfWeek().plus(1);
-//        String raceDateStr = raceDate.getDisplayName(TextStyle.SHORT, Locale.CANADA);
-//
-//        System.out.println(raceDateStr);
-//    }
+    @Test
+    void generateInitialPlan_startDateIsMonday() {
+        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(RACE_DATE));
+
+        // Check if the first date is a Monday
+        assertThat(plan.getWorkouts().getFirst().getDate().getDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+
+        // On a Thursday
+        LocalDate thursdayRaceDate = LocalDate.of(2026, 10, 22);
+        plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(thursdayRaceDate));
+
+        assertThat(plan.getWorkouts().getFirst().getDate().getDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+
+    }
 
     @Test
-    void generateInitialPlan_startDate() {
-        LocalDate startDate = LocalDate.of(2026, 10, 11);
-        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(startDate));
+    void generateInitialPlan_atLeastTwelveWeeks() {
+        TrainingPlan plan = planEngineService.generateInitialPlan(raceGoalWithRaceDate(RACE_DATE));
+        // 7 days in a week * 12 weeks = 84 days (workouts)
+        assertThat(plan.getWorkouts().size()).isGreaterThanOrEqualTo(84);
     }
 }

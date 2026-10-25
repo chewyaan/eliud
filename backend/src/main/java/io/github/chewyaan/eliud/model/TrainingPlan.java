@@ -12,6 +12,7 @@ public class TrainingPlan {
     private Long id;
 
     @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OrderBy("date ASC")
     private List<PlannedWorkout> plannedWorkouts;
 
     @ManyToOne(fetch = FetchType.LAZY)
