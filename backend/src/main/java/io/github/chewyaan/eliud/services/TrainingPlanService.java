@@ -2,6 +2,7 @@ package io.github.chewyaan.eliud.services;
 
 import io.github.chewyaan.eliud.dto.PlannedWorkoutDto;
 import io.github.chewyaan.eliud.dto.TrainingPlanDto;
+import io.github.chewyaan.eliud.exception.ResourceNotFoundException;
 import io.github.chewyaan.eliud.model.PlannedWorkout;
 import io.github.chewyaan.eliud.model.TrainingPlan;
 import io.github.chewyaan.eliud.repository.RaceGoalRepository;
@@ -27,7 +28,7 @@ public class TrainingPlanService {
     @Transactional
     public TrainingPlanDto createPlanForGoal(Long raceGoalId) {
         TrainingPlan trainingPlan = planEngineService.generateInitialPlan(
-                raceGoalRepository.findById(raceGoalId).orElseThrow(() -> new IllegalArgumentException("Invalid ID Provided"))
+                raceGoalRepository.findById(raceGoalId).orElseThrow(() -> new ResourceNotFoundException("Could not find race goal ID: " + raceGoalId))
         );
 
         // Needs to save to repo first - so that the training plan id is properly generated for the .getId() call in toDto()
