@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { RaceGoal } from "../types/RaceGoal";
 import type { TrainingPlan } from "../types/TrainingPlan";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { DatePicker } from "./DatePicker";
 
 export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPlan: TrainingPlan | null; setTrainingPlan: React.Dispatch<React.SetStateAction<TrainingPlan | null>> }) {
   const [name, setName] = useState("");
@@ -66,33 +69,27 @@ export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPl
 
   return (
     <form onSubmit={handleGenerateRaceGoal}>
-      <div>
-        <label>
-          Name:{" "}
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Distance:{" "}
-          <input
-            type="number"
-            value={distance}
-            onChange={(e) => setDistance(e.target.value)}
-          />
-        </label>
-        <label>
-          Race Date:{" "}
+      <div className="flex flex-col gap-6">
+        <div className="grid gap-2">
+          <Label>Race Name</Label>
+          <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="flex gap-2">
+          <Label>Distance (in km)</Label>
+          <Input className="w-[50%]" type="number" value={distance} onChange={(e) => setDistance(e.target.value)} />
+          <Label htmlFor="date-picker-simple">Date</Label>
+          <DatePicker />
+        </div>
+        {/* <label>
+          Race Date
           <input
             type="date"
             value={raceDate}
             onChange={(e) => setRaceDate(e.target.value)}
           />
-        </label>
+        </label> */}
         <label>
-          Time:{" "}
+          Time:
           <input
             type="text"
             value={time}
