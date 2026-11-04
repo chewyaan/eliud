@@ -2,15 +2,6 @@ import { useState } from 'react'
 import type { TrainingPlan } from './types/TrainingPlan'
 import GoalForm from './components/GoalForm'
 import type { PlannedWorkout } from './types/PlannedWorkout';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
 function App() {
   const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null);
@@ -49,17 +40,7 @@ function App() {
 
   return (
     <>
-    <Card className="max-w-md mx-auto my-5">
-      <CardHeader>
-        <CardTitle>What is your next race?</CardTitle>
-        <CardDescription>
-          Enter the details of your next race to generate a personalized training plan.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <GoalForm trainingPlan={trainingPlan} setTrainingPlan={setTrainingPlan} />
-      </CardContent>
-    </Card>
+    <GoalForm trainingPlan={trainingPlan} setTrainingPlan={setTrainingPlan} />
      {Array.from(workoutMap.entries()).map(([week, workouts]) => (
         <div key={week}>
           <h2>{week}</h2>
