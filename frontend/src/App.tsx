@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import type { TrainingPlan } from './types/TrainingPlan'
-import './App.css'
 import GoalForm from './components/GoalForm'
 import type { PlannedWorkout } from './types/PlannedWorkout';
 
@@ -41,7 +40,7 @@ function App() {
 
   return (
     <>
-     <GoalForm trainingPlan={trainingPlan} setTrainingPlan={setTrainingPlan} />
+    <GoalForm trainingPlan={trainingPlan} setTrainingPlan={setTrainingPlan} />
      {Array.from(workoutMap.entries()).map(([week, workouts]) => (
         <div key={week}>
           <h2>{week}</h2>
