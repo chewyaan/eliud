@@ -98,10 +98,10 @@ export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPl
                 <Label>Race Name</Label>
                 <Input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Boston Marathon, TCS New York City Marathon, etc..." />
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-[10fr_10fr_10fr] gap-2">
                 <div className="grid gap-2">
-                  <Label>Distance (in km)</Label>
-                  <Input className="w-[50%]" type="number" value={distance} onChange={(e) => setDistance(e.target.value)} />
+                  <Label>Distance</Label>
+                  <Input type="number" value={distance} onChange={(e) => setDistance(e.target.value)} />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="date-picker-simple">Date</Label>
@@ -169,7 +169,7 @@ export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPl
           <CheckCircle2Icon />
           <AlertTitle>Training Plan Generated</AlertTitle>
           <AlertDescription>
-            <p>Training plan generated! Check the Network tab in your browser's developer tools for more details.</p>
+            <p>Training plan is successfully generated! Review it below.</p>
           </AlertDescription>
         </Alert>
       )}
