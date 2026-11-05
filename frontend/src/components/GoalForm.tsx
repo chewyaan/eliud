@@ -112,20 +112,12 @@ export default function GoalForm({ trainingPlan, setTrainingPlan }: { trainingPl
                   <Input type="text" value={time} onChange={(e) => setTime(e.target.value)} placeholder="PTxxHxxM" />
                 </div>
               </div>
-              {/* <label>
-            Race Date
-            <input
-              type="date"
-              value={raceDate}
-              onChange={(e) => setRaceDate(e.target.value)}
-            />
-          </label> */}
               <Button type="submit">Create Goal</Button>
             </div>
           </form>
         </CardContent>
         {raceGoalError && (
-          <Alert variant="destructive" className="max-w-md mx-auto my-5">
+          <Alert variant="destructive" className="max-w-sm mx-auto">
             <AlertCircleIcon />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>
